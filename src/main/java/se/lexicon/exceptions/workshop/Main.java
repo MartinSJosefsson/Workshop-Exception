@@ -22,6 +22,7 @@ public class Main {
         Person test = nameService.getNewRandomPerson();
         System.out.println(test);
 
+
 	}
 
 }
