@@ -21,8 +21,8 @@ public class Main {
 
             NameService nameService = new NameService(maleFirstNames, femaleFirstNames, lastNames);
 
-//            nameService.addFemaleFirstName("Alice");
-            nameService.addLastName("Andersson");
+            nameService.addMaleFirstName("Martin");
+            nameService.addLastName("Josefsson");
 
             Person test = nameService.getNewRandomPerson();
             System.out.println(test);
