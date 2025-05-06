@@ -93,7 +93,10 @@ public class NameService {
 	 *
 	 * @param lastName
 	 */
-	public void addLastName(String lastName) throws IOException {
+	public void addLastName(String lastName) throws DuplicateNameException, IOException {
+		if (lastNames.contains(lastName))
+			throw new DuplicateNameException("Can not add duplicate Last name: ", lastName);
+
 		lastNames.add(lastName);
 		CSVReader_Writer.saveLastNames(lastNames);
 	}
