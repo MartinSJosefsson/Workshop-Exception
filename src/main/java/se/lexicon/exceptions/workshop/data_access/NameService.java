@@ -3,12 +3,13 @@ package se.lexicon.exceptions.workshop.data_access;
 import java.util.List;
 import java.util.Random;
 
+import se.lexicon.exceptions.workshop.customexception.DuplicateNameException;
 import se.lexicon.exceptions.workshop.domain.Gender;
 import se.lexicon.exceptions.workshop.domain.Person;
 import se.lexicon.exceptions.workshop.fileIO.CSVReader_Writer;
 
 public class NameService {
-	
+
 
 	    private List<String>maleFirstNames;
 	    private List<String>femaleFirstNames;
@@ -61,10 +62,13 @@ public class NameService {
 	     * DuplicateNameException.
 	     * @param name
 	     */
-	    public void addFemaleFirstName(String name){
-	    	femaleFirstNames.add(name);
+	    public void addFemaleFirstName(String name) throws DuplicateNameException {
+			if (femaleFirstNames.contains(name))
+				throw new DuplicateNameException("Duplicate Female First name found", name);
+
+			femaleFirstNames.add(name);
 	    	CSVReader_Writer.saveFemaleNames(femaleFirstNames);
-	    		
+
 	    }
 
 	    /**
@@ -90,5 +94,5 @@ public class NameService {
 	    }
 
 
-	
+
 }
