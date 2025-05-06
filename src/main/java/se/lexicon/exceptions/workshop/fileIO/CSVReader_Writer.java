@@ -37,7 +37,8 @@ public class CSVReader_Writer {
     }
 
     /**
-     * This method getFemaleFirstNames should make use of a try-catch with resources     *     * @return
+     * This method getFemaleFirstNames should make use of a try-catch with resources     *
+     * * @return
      */
     public static List<String> getFemaleFirstNames() {
         List<String> names = null;
@@ -52,7 +53,11 @@ public class CSVReader_Writer {
     }
 
     /**
-     * This method fetches strings from a file and put them into a list     * This method might throw IOException which due to the throws clause need to     * be handled by the caller.     *     * @return List <String> of last names     * @throws IOException
+     * This method fetches strings from a file and put them into a list
+     * * This method might throw IOException which due to the throws clause need to
+     * * be handled by the caller.     *
+     * * @return List <String> of last names
+     * * @throws IOException
      */
     public static List<String> getLastNames() throws IOException {
         List<String> names = null;
@@ -60,6 +65,9 @@ public class CSVReader_Writer {
         try {
             reader = Files.newBufferedReader(Paths.get("lastnames.txt"));
             names = reader.lines().flatMap(line -> Stream.of(line.split(","))).collect(Collectors.toList());
+
+
+
         } finally {
             if (reader != null) {
                 reader.close();
