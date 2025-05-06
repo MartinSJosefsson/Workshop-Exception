@@ -2,9 +2,11 @@ package se.lexicon.exceptions.workshop.fileIO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,11 +23,25 @@ public class CSVReader_Writer {
         BufferedReader reader = null;
         List <String> names = null;
 
-
-        	reader = Files.newBufferedReader(Paths.get("firstname_males.txt"));
+        try {
+            reader = Files.newBufferedReader(Paths.get("firstname_males.txt"));
             names = reader.lines()
                     .flatMap(line -> Stream.of(line.split(",")))
                     .collect(Collectors.toList());
+
+        }catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("Did not go through!");
+        }finally {
+            try{
+                if (reader != null) {
+                    reader.close();
+                }
+                catch {IOException e) {
+                    System.out.println("Error closing the file");
+                }
+            }
 
          	return names;
         }
@@ -40,10 +56,16 @@ public class CSVReader_Writer {
 
         List<String> names=null;
 
-            BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))
-                names = reader.lines()
-                        .flatMap(line -> Stream.of(line.split(",")))
-                        .collect(Collectors.toList());
+           try (BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))) {
+               names = reader.lines()
+                       .flatMap(line -> Stream.of(line.split(",")))
+                       .collect(Collectors.toList());
+
+           }catch (FileNotFoundException e) {
+               System.out.println("File not found");
+           } catch (IOException e) {
+               System.out.println("Error finding the file");
+           }
 
         return names;
     }
